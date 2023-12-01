@@ -1,0 +1,63 @@
+{
+  "name": "nx-snakegio",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/nx-snakegio/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/nx-snakegio",
+        "main": "packages/nx-snakegio/src/index.ts",
+        "tsConfig": "packages/nx-snakegio/tsconfig.lib.json",
+        "assets": [
+          "packages/nx-snakegio/*.md",
+          {
+            "input": "./packages/nx-snakegio/src",
+            "glob": "**/!(*.ts)",
+            "output": "./src"
+          },
+          {
+            "input": "./packages/nx-snakegio/src",
+            "glob": "**/*.d.ts",
+            "output": "./src"
+          },
+          {
+            "input": "./packages/nx-snakegio",
+            "glob": "generators.json",
+            "output": "."
+          },
+          {
+            "input": "./packages/nx-snakegio",
+            "glob": "executors.json",
+            "output": "."
+          }
+        ]
+      }
+    },
+    "publish": {
+      "command": "node tools/scripts/publish.mjs nx-snakegio {args.ver} {args.tag}",
+      "dependsOn": ["build"]
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "packages/nx-snakegio/**/*.ts",
+          "packages/nx-snakegio/package.json",
+          "packages/nx-snakegio/generators.json"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "packages/nx-snakegio/jest.config.ts"
+      }
+    }
+  },
+  "tags": []
+}
