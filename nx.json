@@ -45,6 +45,5 @@
       "!{projectRoot}/test-setup.[jt]s"
     ],
     "sharedGlobals": []
-  },
-  "nxCloudAccessToken": "NzY3YTc0NzAtZWEyNC00MGJmLTlmOGMtZTViOTI2OWMxMzYxfHJlYWQtd3JpdGU="
+  }
 }
