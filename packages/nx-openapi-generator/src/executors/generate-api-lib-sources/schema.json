@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "title": "GenerateApiLibSources builder",
+  "description": "Generate API lib source files via @openapitools/openapi-generator-cli",
+  "type": "object",
+  "properties": {
+    "useDockerBuild": {
+      "type": "boolean",
+      "description": "Should the build occur inside of a docker container",
+      "default": false
+    },
+    "dockerImage": {
+      "type": "string",
+      "description": "Which docker image should be used for the build?",
+      "default": "openapitools/openapi-generator-cli:latest"
+    },
+    "generator": {
+      "type": "string",
+      "description": "The OpenAPITools generator you want to use",
+      "default": "typescript-fetch"
+    },
+    "additionalProperties": {
+      "type": "string",
+      "description": "The additional properties you want to pass to the generator"
+    },
+    "globalProperties": {
+      "type": "string",
+      "description": "The global properties you want to pass to the generator"
+    },
+    "typeMappings": {
+      "type": "string",
+      "description": "What to map OpenAPI types to. E.g. DateTime to Date"
+    },
+    "sourceSpecPathOrUrl": {
+      "type": "string",
+      "description": "The path (relative to the workspace root) or URL where the source OpenAPI spec file is located at"
+    },
+    "sourceSpecUrlAuthorizationHeaders": {
+      "type": "string",
+      "description": "A URL-encoded string of name:header with a comma separating multiple values"
+    },
+    "silent": {
+      "type": "boolean",
+      "description": "Whether or not to suppress generator output",
+      "default": false
+    }
+  },
+  "required": []
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "init",
+  "title": "",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Version openapi-generator",
+      "default": "2.7.0",
+      "x-prompt": "What version of openapi-generator you want to install (default 2.7.0)"
+    }
+  },
+  "required": ["version"]
+}

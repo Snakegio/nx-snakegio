@@ -1,13 +1,16 @@
 {
-  "name": "nx-openapi-generator",
-  "version": "0.0.1",
+  "name": "@snakegio/nx-openapi-generator",
+  "version": "0.0.3",
+  "main": "./src/index.js",
   "dependencies": {
+    "@nx/devkit": "17.1.3",
     "create-nx-workspace": "17.1.3"
   },
+  "peerDependencies": {
+    "@nx/workspace": ">=17.0.0"
+  },
   "type": "commonjs",
-  "main": "./src/index.js",
   "typings": "./src/index.d.ts",
-  "bin": {
-    "nx-openapi-generator": "./bin/index.js"
-  }
+  "generators": "./generators.json",
+  "executors": "./executors.json"
 }

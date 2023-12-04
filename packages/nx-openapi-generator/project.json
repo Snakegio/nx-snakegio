@@ -1,7 +1,7 @@
 {
   "name": "nx-openapi-generator",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/nx-openapi-generator/bin",
+  "sourceRoot": "packages/nx-openapi-generator/src",
   "projectType": "library",
   "targets": {
     "build": {
@@ -9,13 +9,35 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/packages/nx-openapi-generator",
-        "main": "packages/nx-openapi-generator/bin/index.ts",
+        "main": "packages/nx-openapi-generator/src/index.ts",
         "tsConfig": "packages/nx-openapi-generator/tsconfig.lib.json",
-        "assets": ["packages/nx-openapi-generator/*.md"]
+        "assets": [
+          "packages/nx-openapi-generator/*.md",
+          {
+            "input": "./packages/nx-openapi-generator/src",
+            "glob": "**/!(*.ts)",
+            "output": "./src"
+          },
+          {
+            "input": "./packages/nx-openapi-generator/src",
+            "glob": "**/*.d.ts",
+            "output": "./src"
+          },
+          {
+            "input": "./packages/nx-openapi-generator",
+            "glob": "generators.json",
+            "output": "."
+          },
+          {
+            "input": "./packages/nx-openapi-generator",
+            "glob": "executors.json",
+            "output": "."
+          }
+        ]
       }
     },
     "publish": {
-      "command": "node tools/scripts/publish.mjs nx-openapi-generator {args.ver} {args.tag}",
+      "command": "node tools/scripts/publish.mjs nx-openapi-generator 1.0.0 dev",
       "dependsOn": ["build"]
     },
     "lint": {
@@ -24,7 +46,9 @@
       "options": {
         "lintFilePatterns": [
           "packages/nx-openapi-generator/**/*.ts",
-          "packages/nx-openapi-generator/package.json"
+          "packages/nx-openapi-generator/package.json",
+          "packages/nx-openapi-generator/generators.json",
+          "packages/nx-openapi-generator/executors.json"
         ]
       }
     },
@@ -36,6 +60,5 @@
       }
     }
   },
-  "tags": [],
-  "implicitDependencies": ["nx-snakegio"]
+  "tags": []
 }

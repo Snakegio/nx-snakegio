@@ -5,6 +5,8 @@
     "declaration": true,
     "types": ["node"]
   },
-  "include": ["src/**/*.ts", "bin/**/*.ts"],
+  "include": ["src/**/*.ts",
+    "src/**/*.ts"
+  ],
   "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"]
 }

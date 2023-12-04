@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "name": "nx-plugin-openapi",
+  "generators": {
+    "init": {
+      "factory": "./src/generators/init/generator",
+      "schema": "./src/generators/init/schema.json",
+      "description": "Initialize the @snakegio/nx-openapi-generator plugin",
+      "aliases": ["ng-add"]
+    },
+    "pippo": {
+      "factory": "./src/generators/pippo/generator",
+      "schema": "./src/generators/pippo/schema.json",
+      "description": "pippo generator"
+    }
+  }
+}
