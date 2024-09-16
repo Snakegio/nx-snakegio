@@ -1,13 +1,13 @@
 import { logger } from '@nx/devkit';
 import { GenerateApiLibSourcesExecutorSchema } from './schema';
-import {mkdirSync} from "fs";
-import {ExecutorContext} from "nx/src/config/misc-interfaces";
-import {deleteOutputDir} from "../../utils/delete-output-dir";
+import { mkdirSync } from 'fs';
+import { ExecutorContext } from 'nx/src/config/misc-interfaces';
+import { deleteOutputDir } from '../../utils/delete-output-dir';
 import { spawn } from 'cross-spawn';
 
 export default async function runExecutor(
   options: GenerateApiLibSourcesExecutorSchema,
-  context: ExecutorContext,
+  context: ExecutorContext
 ): Promise<{ success: boolean }> {
   const outputDir = context.workspace.projects[context.projectName].sourceRoot;
   const root = context.root;
@@ -28,7 +28,8 @@ export default async function runExecutor(
     options.globalProperties,
     options.typeMappings,
     options.silent,
-    outputDir,
+    options.skipValidateSpec,
+    outputDir
   );
 
   return { success: true };
@@ -44,19 +45,36 @@ async function generateSources(
   globalProperties: string,
   typeMappings: string,
   silent: boolean,
-  outputDir: string,
+  skipValidateSpec: boolean,
+  outputDir: string
 ): Promise<number> {
   mkdirSync(outputDir, { recursive: true });
 
   return new Promise((resolve, reject) => {
     const { command, args } = useDockerBuild
       ? {
-        command: 'docker',
-        args: ['run', '--rm', '-v', `${process.cwd()}:/local`, '-w', '/local', dockerImage],
-      }
+          command: 'docker',
+          args: [
+            'run',
+            '--rm',
+            '-v',
+            `${process.cwd()}:/local`,
+            '-w',
+            '/local',
+            dockerImage,
+          ],
+        }
       : { command: 'npx', args: ['openapi-generator-cli'] };
 
-    args.push('generate', '-i', apiSpecPathOrUrl, '-g', generator, '-o', outputDir);
+    args.push(
+      'generate',
+      '-i',
+      apiSpecPathOrUrl,
+      '-g',
+      generator,
+      '-o',
+      outputDir
+    );
 
     if (additionalProperties) {
       args.push('--additional-properties', additionalProperties);
@@ -72,6 +90,10 @@ async function generateSources(
 
     if (globalProperties) {
       args.push('--global-property', globalProperties);
+    }
+
+    if (skipValidateSpec) {
+      args.push('--skip-validate-spec');
     }
 
     logger.info(`[command]: ${command} ${args.join(' ')}`);

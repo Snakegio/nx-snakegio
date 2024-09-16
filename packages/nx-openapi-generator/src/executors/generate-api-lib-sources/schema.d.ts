@@ -8,4 +8,5 @@ export interface GenerateApiLibSourcesExecutorSchema {
   globalProperties?: string;
   typeMappings?: string;
   silent?: boolean;
+  skipValidateSpec?: boolean;
 }

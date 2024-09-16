@@ -37,7 +37,7 @@
       }
     },
     "publish": {
-      "command": "node tools/scripts/publish.mjs nx-openapi-generator 1.0.0 dev",
+      "command": "node tools/scripts/publish.mjs nx-openapi-generator 1.1.0 dev",
       "dependsOn": ["build"]
     },
     "lint": {
